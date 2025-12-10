@@ -10,13 +10,13 @@ TB_temp <- function(name = NULL, ID = NULL, path, time = NULL, datetime = NULL){
 
 TB_plot <- function(name = NULL, ID = NULL, path,
                     time_start = NULL, time_end = NULL,
-                    datetime_start = NULL, datetime_end = NULL, ...){
+                    datetime_start = NULL, datetime_end = NULL,
+                    return_df = TRUE, ...){
   .TB_plot(name = name, ID = ID, path = path,
-           time_start, time_end, datetime_start,datetime_end)
+           time_start, time_end, datetime_start, datetime_end,
+           return_df = return_df, ...)
 }
 
-batch_TB_temp <- function(time_path, tidbit_path,
-                          write = TRUE,
-                          average = TRUE){
-  .batch_TB_temp(time_path, tidbit_path, write, average)
+batch_TB_temp <- function(time_path, tidbit_path){
+  .batch_TB_temp(time_path, tidbit_path)
 }
