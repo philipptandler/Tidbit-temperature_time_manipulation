@@ -8,6 +8,7 @@ tidbitsheet_colname_temperature <- 3
 TB_suffix <- ".csv"
 
 # for batch process: format time input sheet
+# for colnames: Check how R reads the colnames. It typically reads spaces and special charag=cters as "."
 timesheet_colname_TBID <- "TB_ID"
 timesheet_colname_times <- "timestamp_custom"
 timesheet_time_format <- "%m-%d-%Y %H:%M:%S"
