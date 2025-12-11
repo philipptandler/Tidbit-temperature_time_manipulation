@@ -2,7 +2,8 @@ source("config/config.R")
 
 # for writing the average of temperature values ifor each tidbit
 .average_temp_by_ID <- function(df, ID_col, temp_col){
-  df$avgTemp <- ave(df[[temp_col]], df[[ID_col]], FUN = mean) 
+  df$avgTemp <- ave(df[[temp_col]], df[[ID_col]],
+                    FUN = function(x) mean(x, na.rm = TRUE)) 
   df
 }
 
@@ -70,9 +71,19 @@ source("config/config.R")
 # df as dataframe with times in df$datetime and temperature, time as point
 .interpolate_temp <- function(df, time_target){
   
-   # Time before and after given time
+  if(time_target < min(df$datetime)){
+    stop("requested time is out of boundry (too small) for the provided tidibit sheet.")
+  }
+  if(time_target > max(df$datetime)){
+    stop("requested time is out of boundry (too large) for the provided tidibit sheet.")
+  }
+  # Time before and after given time
   time_before <- max(df$datetime[df$datetime <= time_target])
   time_after <- min(df$datetime[df$datetime >= time_target])
+  # fix time_target == time entry
+  if(time_before == time_after){
+    return(df[[tidbitsheet_colname_temperature]][df$datetime == time_before])
+  }
   dtarget <- as.numeric(time_target - time_before, units = "secs")
   dtotal  <- as.numeric(time_after - time_before, units = "secs")
   
@@ -98,6 +109,7 @@ source("config/config.R")
 # returns dataframe for a tidbit ID
 .read_TB_csv <- function(ID, path){
   df <- read.csv(file.path(path, paste0(ID, TB_suffix)))
+  df <- na.omit(df)
   df$datetime <- strptime(df[[tidbitsheet_colname_time]], tidbitsheet_time_format, tz = time_zone)
   df
 }
