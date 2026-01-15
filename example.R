@@ -16,3 +16,5 @@ TB_plot(name="44G", path = TB_files, datetime_start = "2025-09-04 06:00:00", dat
 # set path for csv containing for each tidbit location the timestamps 
 time_path = "C:/Users/ptandler/Documents/BurrelCreekProject/Year2_2025/02.Data/01.Selkirk/03.Processed_Data/02.H20T/2025-09-04/ChannelHigh_005_006/image_times.csv"
 batch_TB_temp(time_path = time_path, tidbit_path = TB_files)
+
+
