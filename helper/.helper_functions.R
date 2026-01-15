@@ -68,6 +68,12 @@ source("config/config.R")
   ID
 }
 
+# for a ID retrieves name from library
+.get_name <- function(ID){
+  name <- tidbit_lib[tidbit_lib$ID == ID,]$name
+  name
+}
+
 # df as dataframe with times in df$datetime and temperature, time as point
 .interpolate_temp <- function(df, time_target){
   
@@ -147,6 +153,7 @@ source("config/config.R")
   plot(temp ~ time, data = rdf,
        xlab = xlab,
        ylab = ylab,
+       main = paste0("TidbiT: ", .get_name(ID), ", ", ID),
        ...)
   #return used dataframe
   if(return_df) return(rdf)
